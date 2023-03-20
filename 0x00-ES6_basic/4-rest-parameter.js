@@ -1,4 +1,3 @@
-export default function returnHowManyArguments() {
-  const sum = arguments.length;
-  return sum;
+export default function returnHowManyArguments(...theArgs) {
+  return theArgs.length;
 }
