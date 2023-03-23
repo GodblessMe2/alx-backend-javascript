@@ -12,7 +12,7 @@ class HolbertonCourse {
 
   set name(value) {
     if (typeof value !== 'string') {
-      throw new Error('Invalid input type');
+      throw new Error('Name must be a string');
     }
     this._name = value;
   }
@@ -23,7 +23,7 @@ class HolbertonCourse {
 
   set length(value) {
     if (typeof value !== 'number') {
-      throw new Error('Invalid input type');
+      throw new Error('Length must be a number');
     }
     this._length = value;
   }
