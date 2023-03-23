@@ -1,24 +1,24 @@
 /* eslint-disable no-underscore-dangle */
 class Currency {
-  constructor(name, code) {
-    this._name = name;
+  constructor(code, name) {
     this._code = code;
-  }
-
-  get name() {
-    return this._name;
-  }
-
-  set name(value) {
-    this._name = value;
+    this._name = name;
   }
 
   get code() {
     return this._code;
   }
 
-  set code(value) {
-    this._code = value;
+  get name() {
+    return this._name;
+  }
+
+  set code(code) {
+    this._code = code;
+  }
+
+  set name(name) {
+    this._name = name;
   }
 
   displayFullCurrency() {
