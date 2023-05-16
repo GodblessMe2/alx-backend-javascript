@@ -25,6 +25,6 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(1245, '127.0.0.1', () => {
-  console.log('server running');
-});
+server.listen(1245);
+
+module.exports = server;
