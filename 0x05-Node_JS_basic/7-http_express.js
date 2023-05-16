@@ -7,15 +7,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/students', async (req, res) => {
-  const title = 'This is the list of our students\n';
-  try {
-    const data = await countStudents(process.argv[2]);
-    res.send(`${title}${data.join('\n')}`);
-  } catch (error) {
-    res.send(`${title}${error.message}`);
-  }
+  countStudents(process.argv[2].toString()).then((output) => {
+    res.send(['This is the list of our students', output].join('\n'));
+  }).catch(() => {
+    res.send('This is the list of our students\nCannot load the database');
+  });
 });
 
-app.listen(1245);
+app.listen(1245, '127.0.0.1');
 
 module.exports = app;

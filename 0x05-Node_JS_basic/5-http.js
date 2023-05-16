@@ -10,9 +10,9 @@ const server = http.createServer(async (req, res) => {
   res.setHeader('Content-type', 'text/plain');
 
   if (pathname === '/') {
-    res.end('Hello Holberton School!');
+    res.write('Hello Holberton School!');
   } else if (pathname === '/students') {
-    res.end('This is the list of our students\n');
+    res.write('This is the list of our students\n');
     try {
       const students = await countStudents(DATABASE);
       res.end(`${students.join('\n')}`);
@@ -25,6 +25,6 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(1245);
+server.listen(1245, '127.0.0.1');
 
 module.exports = server;
