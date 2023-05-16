@@ -1,24 +1,26 @@
 const fs = require('fs');
 
-const aggregate = (data) => data.slice(1).reduce(
-  (a, b) => {
-    const [first, , , field] = b.split(',');
-    if (field === 'CS') {
-      a.cs.push(first);
-    } else if (field === 'SWE') a.swe.push(first);
-    return a;
-  },
-  { cs: [], swe: [] }
-);
-const readDatabase = (path) => async (req, res) => {
-  try {
-    fs.readFile(path, 'utf-8', (err, res) => {
-      if (err) throw new Error('Cannot load the database');
-      return aggregate(res.split('\n'));
+module.exports = function readDatabase (filePath) {
+  const students = {};
+  return new Promise((resolve, reject) => {
+    fs(filePath, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        const lines = data.toString().split('\n');
+        const noHeader = lines.slice(1);
+        for (let i = 0; i < noHeader.length; i += 1) {
+          if (noHeader[i]) {
+            const field = noHeader[i].toString().split(',');
+            if (Object.prototype.hasOwnProperty.call(students, field[3])) {
+              students[field[3]].push(field[0]);
+            } else {
+              students[field[3]] = [field[0]];
+            }
+          }
+        }
+        resolve(students);
+      }
     });
-  } catch (err) {
-    return new Error('Cannot load the database');
-  }
+  });
 };
-
-module.exports = readDatabase;
