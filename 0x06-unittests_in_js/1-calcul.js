@@ -1,4 +1,4 @@
-module.exports = function calculateNumber (type, a, b = 0) {
+module.exports = function calculateNumber (type, a = 0, b = 0) {
   if (Number.isNaN(a) || Number.isNaN(b)) {
     throw TypeError;
   }

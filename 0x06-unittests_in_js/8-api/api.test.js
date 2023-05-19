@@ -1,13 +1,29 @@
 const expect = require('chai').expect;
 const request = require('request');
 
-describe('test the API', () => {
-  it('test the API with status, body', (done) => {
-    request('http://localhost:7865', 'GET', (er, rs, bd) => {
-      if (er) throw er;
-      expect(rs.statusCode).to.equal(200);
-      expect(bd).to.equal('Welcome to the payment system');
+describe('/GET', function () {
+  const options = {
+    url: 'http://localhost:7865/', method: 'GET'
+  };
+
+  it('check correct status code', function (done) {
+    request(options, (_err, res, body) => {
+      expect(res.should.have.status(200));
+      done();
     });
-    done();
+  });
+
+  it('check correct content', function (done) {
+    request(options, function (_err, res, body) {
+      expect(body).to.contain('Welcome to the payment system');
+      done();
+    });
+  });
+
+  it('check correct content length', function (done) {
+    request(options, function (_err, res, body) {
+      expect(res.headers['content-length']).to.equal('29');
+      done();
+    });
   });
 });
